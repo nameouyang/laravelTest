@@ -25,6 +25,9 @@ Route::get('/menu2', 'Test@menu2');
 Route::get('/menu3', 'Test@menu3');
 Route::get('/menu4', 'Test@menu4');
 
+Route::get('/article', 'Test@article');
+
+
 //Route::get('/person', 'Test@person');
 /*Route::get('/person', function() {
     // 只有认证用户可以进入...
@@ -40,10 +43,15 @@ Route::get('/login', 'Auth\LoginController@showLoginForm');
 Route::post('/login', 'Auth\LoginController@login');
 
 Route::get('/admin/index', 'Admin\IndexController@index');
+Route::post('/admin/index', 'Admin\IndexController@index');
 Route::get('/admin/add', 'Admin\IndexController@add');
+Route::post('/admin/test', 'Admin\IndexController@test');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('photos', 'PhotoController');
+
 
 

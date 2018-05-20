@@ -22,23 +22,25 @@
                 <!--新建文章-->
                 <li>
                     <!--水平布局-->
-                    <form class="uk-form uk-form-horizontal">
+                    <form class="uk-form uk-form-horizontal" method="POST" action="{{ url('/admin/test') }}">
+                        <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+
                         <!--设置文章标题-->
                         <div class="uk-form-row">
                             <label class="uk-form-label" for="form-h-it">文章标题</label>
                             <div class="uk-form-controls">
-                                <input type="text" id="form-h-it" style="width: 380px;" placeholder="标题限长25字">
+                                <input type="text" name="title" id="form-h-it" style="width: 380px;" placeholder="标题限长25字">
                             </div>
                         </div>
                         <!--设置文章主题-->
                         <div class="uk-form-row">
                             <label class="uk-form-label" for="first">文章主题</label>
                             <div class="uk-form-controls">
-                                <select id="first" onchange="change()">
-                                    <option selected="selected">软件使用</option>
-                                    <option>摄影技巧</option>
-                                    <option>智能设备</option>
-                                    <option>生活方式</option>
+                                <select id="first" onchange="change()" name="zhuti">
+                                    <option selected="selected" value="1">软件使用</option>
+                                    <option value="2">摄影技巧</option>
+                                    <option value="3">智能设备</option>
+                                    <option value="4">生活方式</option>
                                 </select>
                             </div>
                         </div>
@@ -46,11 +48,11 @@
                         <div class="uk-form-row">
                             <label class="uk-form-label" for="second">文章栏目</label>
                             <div class="uk-form-controls">
-                                <select id="second">
-                                    <option>iOS</option>
-                                    <option>Android</option>
-                                    <option>Mac</option>
-                                    <option>Win</option>
+                                <select id="second" name="lanmu">
+                                    <option value="1">iOS</option>
+                                    <option value="2">Android</option>
+                                    <option value="3">Mac</option>
+                                    <option value="4">Win</option>
                                 </select>
                                 <!--两个下拉菜单-->
                                 <script>
@@ -95,13 +97,13 @@
                             <div class="uk-form-controls">
                                 <div class="uk-htmleditor-content">
                                     <div class="uk-htmleditor-code">
-                                        <textarea data-uk-htmleditor="{maxsplitsize:600}" data-uk-check-display="1" style="display: none;">&lt;h1&gt;Heading&lt;/h1&gt;
+                                        <textarea name="content" data-uk-htmleditor="{maxsplitsize:600}" data-uk-check-display="1" style="display: none;">&lt;h1&gt;Heading&lt;/h1&gt;
                                         </textarea>
                                     </div>
                                 </div>
                             </div>
-                            <button class="uk-button-success uk-button-large uk-align-medium-right uk-margin-top">确认发布</button>
-                            <button class="uk-button-primary uk-button-large uk-align-right uk-margin-top">保存至草稿箱</button>
+                            <button type="submit" class="uk-button-success uk-button-large uk-align-medium-right uk-margin-top">确认发布</button>
+                            <button type="submit" class="uk-button-primary uk-button-large uk-align-right uk-margin-top">保存至草稿箱</button>
                         </div>
 
                     </form>

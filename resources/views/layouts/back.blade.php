@@ -25,28 +25,28 @@
 
 <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom "> <!--容器-->
 
-<!--导航栏-->
-<nav class="uk-navbar uk-margin-bottom">  <!--导航栏-->
-    <a class="uk-navbar-brand uk-hidden-small" href="{{ url('index')}}">前台</a>
-    <ul class="uk-navbar-nav uk-hidden-small">
+    <!--导航栏-->
+    <nav class="uk-navbar uk-margin-bottom">  <!--导航栏-->
+        <a class="uk-navbar-brand uk-hidden-small" href="{{ url('index')}}">前台</a>
+        <ul class="uk-navbar-nav uk-hidden-small">
 
-        <li @if('index' == $action) class="uk-active" @endif >
-            <a href="{{ url('admin/index')}}">管理文章</a>
-        </li>
-        <li @if('add' == $action) class="uk-active" @endif>
-            <a href="{{ url('admin/add')}}">新建文章</a>
-        </li>
-        <li @if('user' == $action) class="uk-active" @endif>
-            <a href="{{ url('admin/user')}}">用户管理</a>
-        </li>
-    </ul>
-</nav>
+            <li @if('index' == $action) class="uk-active" @endif >
+                <a href="{{ url('admin/index')}}">管理文章</a>
+            </li>
+            <li @if('add' == $action) class="uk-active" @endif>
+                <a href="{{ url('admin/add')}}">新建文章</a>
+            </li>
+            <li @if('user' == $action) class="uk-active" @endif>
+                <a href="{{ url('admin/user')}}">用户管理</a>
+            </li>
+        </ul>
+    </nav>
 
     @yield('content')
+
+    <!--分隔线-->
+    <hr class="uk-grid-divider">
 </div>
-
-<!--分隔线-->
-<hr class="uk-grid-divider">
-
 </body>
+
 </html>

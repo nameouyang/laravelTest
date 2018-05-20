@@ -72,4 +72,9 @@ class Test extends Controller
     {
         return view('test/register');
     }
+
+    public function article()
+    {
+        return view('test/article');
+    }
 }

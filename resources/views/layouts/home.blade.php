@@ -11,29 +11,30 @@
 </head>
 <body>
 
+<div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
 <!--导航栏-->
 <nav class="uk-navbar uk-margin-bottom">
     <a class="uk-navbar-brand uk-hidden-small" href="index.html">Brand</a>
-    <ul class="uk-navbar-nav uk-hidden-small">
-        <li class="uk-active">
-            <a href="{{ url('index/') }}">内容广场</a>
-        </li>
-        <li>
-            <a href="{{ url('menu1/') }}">软件使用</a>
-        </li>
-        <li>
-            <a href="{{ url('menu2/') }}">摄影技巧</a>
-        </li>
-        <li>
-            <a href="{{ url('menu3/') }}">智能设备</a>
-        </li>
-        <li>
-            <a href="{{ url('menu4/') }}">生活方式</a>
-        </li>
-        <li>
-            <a href="{{ url('person/') }}">个人中心</a>
-        </li>
-    </ul>
+        <ul class="uk-navbar-nav uk-hidden-small">
+            <li class="uk-active">
+                <a href="{{ url('index/') }}">内容广场</a>
+            </li>
+            <li>
+                <a href="{{ url('menu1/') }}">软件使用</a>
+            </li>
+            <li>
+                <a href="{{ url('menu2/') }}">摄影技巧</a>
+            </li>
+            <li>
+                <a href="{{ url('menu3/') }}">智能设备</a>
+            </li>
+            <li>
+                <a href="{{ url('menu4/') }}">生活方式</a>
+            </li>
+            <li>
+                <a href="{{ url('person/') }}">个人中心</a>
+            </li>
+        </ul>
     <div class="uk-navbar-flip">
         <div class="uk-navbar-content">
             @if(Auth::check())
@@ -49,9 +50,8 @@
 </nav>
 
     @yield('content')
+</div>
 
-<!--分隔线-->
-<hr class="uk-grid-divider">
 <!-- 侧边导航-->
 <div id="offcanvas" class="uk-offcanvas ">
     <div class="uk-offcanvas-bar">
@@ -77,5 +77,6 @@
         </ul>
     </div>
 </div>
+
 </body>
 </html>
