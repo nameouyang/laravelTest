@@ -39,8 +39,8 @@ Route::group(['middleware' => 'auth'], function () {
 Route::get('/login', 'Auth\LoginController@showLoginForm');
 Route::post('/login', 'Auth\LoginController@login');
 
-Route::get('/admin/index', 'Admin\IndexController@index');
-Route::get('/admin/add', 'Admin\IndexController@add');
+Route::get('/admin/index', 'Admin\TestController@index');
+Route::get('/admin/add', 'Admin\TestController@add');
 
 Auth::routes();
 
