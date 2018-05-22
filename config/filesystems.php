@@ -62,6 +62,12 @@ return [
             'region' => env('AWS_REGION'),
             'bucket' => env('AWS_BUCKET'),
         ],
+        'uploads' => [
+            'driver' => 'local',
+            // 自定义路径, 此路径是我本地域名http://uploads.server/的根目录
+            //'root' => 'http://laravel.test.com//upload',
+            'root' => public_path('uploads'),
+        ],
 
     ],
 

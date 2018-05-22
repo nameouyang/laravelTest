@@ -18,10 +18,10 @@
                     <a href="#">Android</a>
                 </li>
                 <li aria-expanded="false">
-                    <a href="#">Windows</a>
+                    <a href="#">Mac</a>
                 </li>
                 <li aria-expanded="false">
-                    <a href="#">Mac</a>
+                    <a href="#">Windows</a>
                 </li>
             </ul>
         </div>
@@ -66,6 +66,7 @@
                     </figcaption>
                 </figure>
             </div>
+            <a href="#" data-uk-switcher-item="1" id="ios"></a>
         </li>
 
         <li>
@@ -77,6 +78,7 @@
                     </figcaption>
                 </figure>
             </div>
+            <a href="#" data-uk-switcher-item="2" id="android"></a>
         </li>
 
         <li>
@@ -88,6 +90,7 @@
                     </figcaption>
                 </figure>
             </div>
+            <a href="#" data-uk-switcher-item="3" id="mac"></a>
         </li>
 
         <li>
@@ -99,10 +102,19 @@
                     </figcaption>
                 </figure>
             </div>
+            <a href="#" data-uk-switcher-item="4" id="win"></a>
         </li>
  </ul>
 
     <!--分隔线-->
     <hr class="uk-grid-divider">
 </div>
+<script>
+var type = '{{ $type }}';
+window.onload = function() {
+    $('#'+type).click();
+}
+
+</script>
 @endsection
+

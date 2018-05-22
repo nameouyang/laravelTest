@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>后台</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('lib/uikit/css/uikit.gradient.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css')}}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('lib/uikit/css/components/search.css')}}">
     <script src="{{ asset('lib/uikit/js/components/Jquery2.0.js')}}"></script>
@@ -15,7 +16,7 @@
 
 <div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom "> <!--容器-->
     <nav class="uk-navbar uk-margin-bottom">  <!--导航栏-->
-        <a class="uk-navbar-brand uk-hidden-small" href="index.html">前台</a>
+        <a class="uk-navbar-brand uk-hidden-small" href="{{ url('index') }}">前台</a>
         <ul class="uk-navbar-nav uk-hidden-small">
             <li @if('index' == $action) class="uk-active" @endif >
                 <a href="{{ url('admin/index')}}">管理文章</a>
@@ -47,6 +48,7 @@
                 </div>
             </div>
         </div>
+
         <!--右侧列表5／6-->
         <div class="uk-width-medium-5-6 uk-row-first">
             <!--文章列表表单-->
@@ -57,70 +59,45 @@
                         <tr>
                             <th class="uk-width-1-10">文章ID</th>
                             <th class="uk-width-4-10">文章标题</th>
+                            <th class="uk-width-1-10">文章主题</th>
                             <th class="uk-width-1-10">
                                 <div class="uk-form-select  uk-active " data-uk-form-select>
                                     <select>
-                                        <option value="1">全部栏目</option>
-                                        <option value="2">iOS软件</option>
-                                        <option value="3">Android</option>
-                                        <option value="4">Mac软件</option>
-                                        <option value="5">Win应用</option>
+                                        <option value="0">全部栏目</option>
+                                        <option value="1">iOS软件</option>
+                                        <option value="2">Android</option>
+                                        <option value="3">Mac软件</option>
+                                        <option value="4">Win应用</option>
                                     </select>
                                 </div>
                             </th>
-                            <th class="uk-width-1-10">文章主题</th>
                             <th class="uk-width-1-10">点赞数</th>
                             <th class="uk-width-1-10">收藏数</th>
                             <th class="uk-width-1-10">操作</th>
                         </tr>
                         </thead>
+                        @foreach($article[0] as $item => $art)
+                            @if(1 == $art->article_type_id)
                         <tr>
-                            <td>1001</td>
-                            <td>LookUp：每天一张精美设计的卡片，让背单词这事更有趣</td>
-                            <td>iOS软件</td>
-                            <td>软件使用</td>
-                            <td>6</td>
-                            <td>8</td>
+                            <td>{{ $art->id }}</td>
+                            <td>{{ $art->title }}</td>
+                            <td>{{ $art->articleType->name }}</td>
+                            <td>{{ $art->articleColumn->name }}</td>
+                            <td>{{ $art->thumbs_up }}</td>
+                            <td>{{ $art->favorite }}</td>
                             <td>
                                 <button class="uk-button-success">修改</button>
                             </td>
                         </tr>
-                        <tr>
-                            <td>1002</td>
-                            <td>LookUp：每天一张精美设计的卡片，让背单词这事更有趣</td>
-                            <td>iOS软件</td>
-                            <td>软件使用</td>
-                            <td>6</td>
-                            <td>8</td>
-                            <td>
-                                <button class="uk-button-success">修改</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1003</td>
-                            <td>LookUp：每天一张精美设计的卡片，让背单词这事更有趣</td>
-                            <td>iOS软件</td>
-                            <td>软件使用</td>
-                            <td>6</td>
-                            <td>8</td>
-                            <td>
-                                <button class="uk-button-success">修改</button>
-                            </td>
-                        </tr>
+                            @endif
+                            @endforeach
                     </table>
 
                     <div>
                         <!--分隔线-->
                         <hr class="uk-grid-divider">
                         <!--分页按钮-->
-                        <ul class="uk-pagination">
-                            <li class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>
-                            <li class="uk-active"><span>1</span></li>
-                            <li><a href="#">2</a></li>
-                            <li><span>...</span></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#"><i class="uk-icon-angle-double-right"></i></a></li>
-                        </ul>
+                        {!! $article[0]->links() !!}
                     </div>
 
                 </li>
@@ -131,6 +108,7 @@
                         <tr>
                             <th class="uk-width-1-10">文章ID</th>
                             <th class="uk-width-4-10">文章标题</th>
+                            <th class="uk-width-1-10">文章主题</th>
                             <th class="uk-width-1-10">
                                 <div class="uk-form-select  uk-active " data-uk-form-select>
                                     <select>
@@ -141,48 +119,31 @@
                                     </select>
                                 </div>
                             </th>
-                            <th class="uk-width-1-10">文章主题</th>
                             <th class="uk-width-1-10">点赞数</th>
                             <th class="uk-width-1-10">收藏数</th>
                             <th class="uk-width-1-10">操作</th>
                         </tr>
                         </thead>
+                        @foreach($article[1] as $art)
                         <tr>
-                            <td>2001</td>
-                            <td>教你用手机拍出一张好照片</td>
-                            <td>手机摄影</td>
-                            <td>摄影技巧</td>
-                            <td>6</td>
-                            <td>8</td>
+                            <td>{{ $art->id }}</td>
+                            <td>{{ $art->title }}</td>
+                            <td>{{ $art->articleType->name }}</td>
+                            <td>{{ $art->articleColumn->name }}</td>
+                            <td>{{ $art->thumbs_up }}</td>
+                            <td>{{ $art->favorite }}</td>
                             <td>
                                 <button class="uk-button-success">修改</button>
                             </td>
                         </tr>
-                        <tr>
-                            <td>2001</td>
-                            <td>教你用手机拍出一张好照片</td>
-                            <td>手机摄影</td>
-                            <td>摄影技巧</td>
-                            <td>6</td>
-                            <td>8</td>
-                            <td>
-                                <button class="uk-button-success">修改</button>
-                            </td>
-                        </tr>
+                            @endforeach
                     </table>
 
                     <div>
                         <!--分隔线-->
                         <hr class="uk-grid-divider">
                         <!--分页按钮-->
-                        <ul class="uk-pagination">
-                            <li class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>
-                            <li class="uk-active"><span>1</span></li>
-                            <li><a href="#">2</a></li>
-                            <li><span>...</span></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#"><i class="uk-icon-angle-double-right"></i></a></li>
-                        </ul>
+                        {!! $article[1]->links() !!}
                     </div>
 
                 </li>
@@ -193,6 +154,7 @@
                         <tr>
                             <th class="uk-width-1-10">文章ID</th>
                             <th class="uk-width-4-10">文章标题</th>
+                            <th class="uk-width-1-10">文章主题</th>
                             <th class="uk-width-1-10">
                                 <div class="uk-form-select  uk-active " data-uk-form-select>
                                     <select>
@@ -203,37 +165,31 @@
                                     </select>
                                 </div>
                             </th>
-                            <th class="uk-width-1-10">文章主题</th>
                             <th class="uk-width-1-10">点赞数</th>
                             <th class="uk-width-1-10">收藏数</th>
                             <th class="uk-width-1-10">操作</th>
                         </tr>
                         </thead>
+                        @foreach($article[2] as $art)
                         <tr>
-                            <td>3001</td>
-                            <td>homepod使用评测</td>
-                            <td>影音器材</td>
-                            <td>智能设备</td>
-                            <td>6</td>
-                            <td>8</td>
+                            <td>{{ $art->id }}</td>
+                            <td>{{ $art->title }}</td>
+                            <td>{{ $art->articleType->name }}</td>
+                            <td>{{ $art->articleColumn->name }}</td>
+                            <td>{{ $art->thumbs_up }}</td>
+                            <td>{{ $art->favorite }}</td>
                             <td>
                                 <button class="uk-button-success">修改</button>
                             </td>
                         </tr>
+                            @endforeach
                     </table>
 
                     <div>
                         <!--分隔线-->
                         <hr class="uk-grid-divider">
                         <!--分页按钮-->
-                        <ul class="uk-pagination">
-                            <li class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>
-                            <li class="uk-active"><span>1</span></li>
-                            <li><a href="#">2</a></li>
-                            <li><span>...</span></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#"><i class="uk-icon-angle-double-right"></i></a></li>
-                        </ul>
+                        {!! $article[2]->links() !!}
                     </div>
 
                 </li>
@@ -245,6 +201,7 @@
                         <tr>
                             <th class="uk-width-1-10">文章ID</th>
                             <th class="uk-width-4-10">文章标题</th>
+                            <th class="uk-width-1-10">文章主题</th>
                             <th class="uk-width-1-10">
                                 <div class="uk-form-select  uk-active " data-uk-form-select>
                                     <select>
@@ -256,37 +213,41 @@
                                     </select>
                                 </div>
                             </th>
-                            <th class="uk-width-1-10">文章主题</th>
                             <th class="uk-width-1-10">点赞数</th>
                             <th class="uk-width-1-10">收藏数</th>
                             <th class="uk-width-1-10">操作</th>
                         </tr>
                         </thead>
+                        @foreach($article[3] as $art)
                         <tr>
-                            <td>4001</td>
-                            <td>五月电影片单</td>
-                            <td>电影</td>
-                            <td>生活方式</td>
-                            <td>6</td>
-                            <td>8</td>
+                            <td>{{ $art->id }}</td>
+                            <td>{{ $art->title }}</td>
+                            <td>{{ $art->articleType->name }}</td>
+                            <td>{{ $art->articleColumn->name }}</td>
+                            <td>{{ $art->thumbs_up }}</td>
+                            <td>{{ $art->favorite }}</td>
                             <td>
                                 <button class="uk-button-success">修改</button>
                             </td>
                         </tr>
+                            @endforeach
+
                     </table>
 
                     <div>
                         <!--分隔线-->
                         <hr class="uk-grid-divider">
                         <!--分页按钮-->
-                        <ul class="uk-pagination">
+                        {{--<ul class="uk-pagination">
                             <li class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>
                             <li class="uk-active"><span>1</span></li>
                             <li><a href="#">2</a></li>
                             <li><span>...</span></li>
                             <li><a href="#">5</a></li>
                             <li><a href="#"><i class="uk-icon-angle-double-right"></i></a></li>
-                        </ul>
+                        </ul>--}}
+                        {!! $article[3]->links() !!}
+
                     </div>
 
                 </li>
@@ -300,38 +261,33 @@
                         <tr>
                             <th class="uk-width-1-10">文章ID</th>
                             <th class="uk-width-4-10">文章标题</th>
-                            <th class="uk-width-1-10">文章栏目</th>
                             <th class="uk-width-1-10">文章主题</th>
+                            <th class="uk-width-1-10">文章栏目</th>
                             <th class="uk-width-1-10">点赞数</th>
                             <th class="uk-width-1-10">收藏数</th>
                             <th class="uk-width-1-10">操作</th>
                         </tr>
                         </thead>
+                        @foreach($article[4] as $art)
                         <tr>
-                            <td>1007</td>
-                            <td>五月电影片单</td>
-                            <td>电影</td>
-                            <td>生活方式</td>
-                            <td>6</td>
-                            <td>8</td>
+                            <td>{{ $art->id }}</td>
+                            <td>{{ $art->title }}</td>
+                            <td>{{ $art->articleType->name }}</td>
+                            <td>{{ $art->articleColumn->name }}</td>
+                            <td>{{ $art->thumbs_up }}</td>
+                            <td>{{ $art->favorite }}</td>
                             <td>
                                 <button class="uk-button-success">修改</button>
                             </td>
                         </tr>
+                            @endforeach
                     </table>
 
                     <div>
                         <!--分隔线-->
                         <hr class="uk-grid-divider">
                         <!--分页按钮-->
-                        <ul class="uk-pagination">
-                            <li class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>
-                            <li class="uk-active"><span>1</span></li>
-                            <li><a href="#">2</a></li>
-                            <li><span>...</span></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#"><i class="uk-icon-angle-double-right"></i></a></li>
-                        </ul>
+                        {!! $article[4]->links() !!}
                     </div>
 
                 </li>

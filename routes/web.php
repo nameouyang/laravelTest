@@ -20,10 +20,11 @@ Route::get('/', 'Test@index');
  *  前台Home
  */
 Route::get('/index', 'Test@index');
-Route::get('/menu1', 'Test@menu1');
-Route::get('/menu2', 'Test@menu2');
-Route::get('/menu3', 'Test@menu3');
-Route::get('/menu4', 'Test@menu4');
+Route::get('/menu1/{type?}', 'Test@menu1');
+Route::get('/menu2/{type?}', 'Test@menu2');
+Route::get('/menu3/{type?}', 'Test@menu3');
+Route::get('/menu4/{type?}', 'Test@menu4');
+Route::get('/follow', 'Test@follow');
 
 Route::get('/article', 'Test@article');
 
@@ -44,6 +45,11 @@ Route::post('/login', 'Auth\LoginController@login');
 
 Route::get('/admin/index', 'Admin\TestController@index');
 Route::get('/admin/add', 'Admin\TestController@add');
+Route::post('/admin/fabu', 'Admin\TestController@fabu');
+Route::post('/admin/caogao', 'Admin\TestController@caogao');
+
+Route::get('/admin/test', 'Admin\TestController@test');
+Route::post('/admin/test', 'Admin\TestController@test');
 
 Auth::routes();
 

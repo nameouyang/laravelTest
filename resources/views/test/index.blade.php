@@ -7,7 +7,7 @@
     <!--首页入口-->
     <div class="uk-grid uk-grid-small">
         <div class="uk-width-1-1 uk-margin-small-bottom">
-            <a href="follow.html">   {{--跳转到关注--}}
+            <a href="{{ url('follow') }}">   {{--跳转到关注--}}
                 <img src="images/banner.jpg">
             </a>
         </div>

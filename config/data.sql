@@ -29,6 +29,8 @@ CREATE TABLE IF NOT EXISTS `article` (
   KEY `idx_title` (`title`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT '文章表';
 
+alter table article add status SMALLINT(3) NOT NULL DEFAULT '0' COMMENT '文章状态，0-未发布 1-已发布';
+
 CREATE TABLE IF NOT EXISTS `article_type` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(64) NOT NULL DEFAULT '' COMMENT '主题名称',

@@ -38,9 +38,9 @@ class Test extends Controller
         return view('test/index');
     }
 
-    public function menu1()
+    public function menu1($type='all')
     {
-        return view('test/menu-01');
+        return view('test/menu-01', ['type' => $type]);
     }
 
     public function menu2()
@@ -76,5 +76,10 @@ class Test extends Controller
     public function article()
     {
         return view('test/article');
+    }
+
+    public function follow()
+    {
+        return view('test/follow');
     }
 }

@@ -6,18 +6,23 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('lib/uikit/css/uikit.gradient.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('lib/uikit/css/components/search.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('lib/codemirror/lib/codemirror.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('lib/uikit/css/components/upload.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('lib/codemirror/lib/codemirror.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('lib/uikit/css/components/notify.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('lib/uikit/css/components/htmleditor.gradient.css')}}">
 
     <script src="{{ asset('lib/uikit/js/components/Jquery2.0.js') }}"></script>
     <script src="{{ asset('lib/uikit/js/uikit.js') }}"></script>
+    {{--<script src="{{ asset('lib/Jquery3.3.1.js') }}"></script>--}}
 
-    <link rel="stylesheet" href="{{ asset('lib/codemirror/lib/codemirror.css') }}">
+    <script src="{{ asset('lib/uikit/js/components/upload.js') }}"></script>
+    <script src="{{ asset('lib/uikit/js/components/notify.js') }}"></script>
     <script src="{{ asset('lib/codemirror/lib/codemirror.js')}}"></script>
     <script src="{{ asset('lib/codemirror/mode/markdown/markdown.js')}}"></script>
     <script src="{{ asset('lib/codemirror/addon/mode/overlay.js')}}"></script>
     <script src="{{ asset('lib/codemirror/mode/xml/xml.js')}}"></script>
     <script src="{{ asset('lib/codemirror/mode/gfm/gfm.js')}}"></script>
     <script src="{{ asset('lib/marked-master/marked.min.js')}}"></script>
-    <link rel="stylesheet" href="{{ asset('lib/uikit/css/components/htmleditor.gradient.css')}}">
     <script src="{{ asset('lib/uikit/js/components/htmleditor.js')}}" type="text/javascript" charset="utf-8"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
