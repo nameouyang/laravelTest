@@ -58,7 +58,7 @@ class TestController extends Controller
 
     private function selectArticle($type)
     {
-         $res = Article::where('status','=',1)->where('article_type_id', '=', $type)->paginate(1);
+         $res = Article::where('status','=',1)->where('article_type_id', '=', $type)->paginate(10);
          return $res;
     }
     public function index()
@@ -70,23 +70,30 @@ class TestController extends Controller
         $article[] = self::selectArticle(2);
         $article[] = self::selectArticle(3);
         $article[] = self::selectArticle(4);
-        $article[] = Article::where('status','=',1)->paginate(1);;
+        $article[] = Article::where('status','=',1)->paginate(10);;
 
 
         return view('admin/index/back', ['action'=>'index', 'article' => $article]);
     }
 
-    public function add()
+    public function add($id = 0)
     {
 //        $article = Article::where('status', '=',0)->get();
         $article = Article::where('status', '=',0)->paginate(1);
         $articleType   = ArticleType::all();
         $articleColumn = ArticleColumn::all();
 
+        $res = [];
+        if (0 != $id) {
+            $res = Article::where('id', '=', $id)->first();
+        }
+
         return view('admin/index/add', [
             'action'        =>'add',
             'article'      => $article,
             'articleType'   => $articleType,
+            'res'   => $res,
+            'id'   => $id,
             'articleColumn' => $articleColumn]);
     }
 
@@ -141,6 +148,25 @@ class TestController extends Controller
         return self::json(0, '请求方式不正确', []);
     }
 
+    /**
+     * 草稿箱的文章发布
+    */
+    public function release($id)
+    {
+        $res = Article::where('id', '=', $id)->update(['status' =>1]);
+        if ($res) {
+            return redirect('admin/index');
+        }
+    }
+
+    public function modifyArticle($id)
+    {
+        $res = Article::where('id', '=', $id)->first();
+        return view('admin/index/add', ['data' => $res]);
+    }
+    /**
+     * ajax请求时返回json
+     * */
     public static function json($code, $msg= '', $data = [])
     {
         $response = ['code' => $code, 'msg'=> $msg, 'data' => $data];
@@ -150,10 +176,11 @@ class TestController extends Controller
     }
 
     /**
+     * 新增文章测试
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function test(Request $request)
+    public function test($id, Request $request)
     {
         /*'title' => null
           'zhuti' => string '1' (length=1)
@@ -171,11 +198,17 @@ class TestController extends Controller
          * */
 
         $allData = $request->all();
-        $article                    = new Article;
-        $imgPath                    = 'uploads/' . self::uploadImages($request);
+        $article = '';
+        if (0 == $id) {
+            $article = new Article;
+            $imgPath                    = 'uploads/' . self::uploadImages($request);
+            $article->banner_img        = $imgPath;
+        } else {
+            $article = Article::where('id', '=', $id)->first();
+        }
         $article->title             = $allData['title'];
         $article->abstract          = $allData['abstract'];
-        $article->banner_img        = $imgPath;
+
         $article->content           = $allData['content'];
         $article->status           = $allData['status'];
         $article->article_type_id   = $allData['zhuti'];
@@ -188,6 +221,9 @@ class TestController extends Controller
         return redirect('admin/index');
     }
 
+    /**上传图片
+     * @return string 图片的路径
+     * */
     public function uploadImages($request)
     {
         $file = $request->file('img')->store('images', 'uploads');

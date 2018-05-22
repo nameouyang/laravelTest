@@ -86,7 +86,9 @@
                             <td>{{ $art->thumbs_up }}</td>
                             <td>{{ $art->favorite }}</td>
                             <td>
-                                <button class="uk-button-success">修改</button>
+                                <a href="{{ url('admin/add').'/'.$art->id }}" class="uk-button uk-button-success">
+                                    修改
+                                </a>
                             </td>
                         </tr>
                             @endif
@@ -133,7 +135,9 @@
                             <td>{{ $art->thumbs_up }}</td>
                             <td>{{ $art->favorite }}</td>
                             <td>
-                                <button class="uk-button-success">修改</button>
+                                <a href="{{ url('admin/add').'/'.$art->id }}" class="uk-button uk-button-success">
+                                    修改
+                                </a>
                             </td>
                         </tr>
                             @endforeach
@@ -179,7 +183,9 @@
                             <td>{{ $art->thumbs_up }}</td>
                             <td>{{ $art->favorite }}</td>
                             <td>
-                                <button class="uk-button-success">修改</button>
+                                <a href="{{ url('admin/add').'/'.$art->id }}" class="uk-button uk-button-success">
+                                    修改
+                                </a>
                             </td>
                         </tr>
                             @endforeach
@@ -227,7 +233,9 @@
                             <td>{{ $art->thumbs_up }}</td>
                             <td>{{ $art->favorite }}</td>
                             <td>
-                                <button class="uk-button-success">修改</button>
+                                <a href="{{ url('admin/add').'/'.$art->id }}" class="uk-button uk-button-success">
+                                    修改
+                                </a>
                             </td>
                         </tr>
                             @endforeach
@@ -277,7 +285,9 @@
                             <td>{{ $art->thumbs_up }}</td>
                             <td>{{ $art->favorite }}</td>
                             <td>
-                                <button class="uk-button-success">修改</button>
+                                <a href="{{ url('admin/add').'/'.$art->id }}" class="uk-button uk-button-success">
+                                    修改
+                                </a>
                             </td>
                         </tr>
                             @endforeach

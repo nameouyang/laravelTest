@@ -2,6 +2,7 @@
     @extends('layouts.back')
 
     @section('content')
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css')}}">
 
     <style>
         .uk-placeholder {
@@ -25,7 +26,7 @@
             <div class="uk-sticky-placeholder " style="height: 600px; margin: 0px;">
                 <div class="uk-panel uk-panel-box" data-uk-sticky="{top:35}" style="margin: 0px;">
                     <ul class="uk-nav uk-nav-side " data-uk-switcher="{connect:'#good'}">
-                        <li class="uk-active" aria-expanded="true"><a href="#"> 创建文章</a></li>
+                        <li class="uk-active" aria-expanded="true"><a href="{{ url('admin/add') }}"> 创建文章</a></li>
                         <li class="" aria-expanded="false"><a href="#">草稿箱</a></li>
                     </ul>
                 </div>
@@ -38,20 +39,20 @@
                 <!--新建文章-->
                 <li>
                     <!--水平布局-->
-                    <form id ="form" class="uk-form uk-form-horizontal" method="POST" action="{{ url('/admin/test') }}" enctype="multipart/form-data">
+                    <form id ="form" class="uk-form uk-form-horizontal" method="POST" action="{{ url('/admin/test').'/' . $id }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <!--设置文章标题-->
                         <div class="uk-form-row">
                             <label class="uk-form-label" for="form-h-it">文章标题</label>
                             <div class="uk-form-controls">
-                                <input type="text" name="title" id="form-h-it" style="width: 380px;" placeholder="标题限长25字">
+                                <input type="text" name="title" id="form-h-it" value="@if(!empty($res)){{ $res->title }}@endif" style="width: 380px;" placeholder="标题限长25字">
                             </div>
                         </div>
 
                         <div class="uk-form-row">
                             <label class="uk-form-label" for="form-h-it">文章简介</label>
                             <div class="uk-form-controls">
-                                <input type="text" name="abstract" id="form-h-it" style="width: 380px;" placeholder="标题限长25字">
+                                <input type="text" name="abstract" value="@if(!empty($res)){{ $res->abstract }}@endif" id="form-h-it" style="width: 380px;" placeholder="标题限长25字">
                             </div>
                         </div>
 
@@ -106,9 +107,6 @@
                                                     y.options.add(new Option("{{ $artColumn->name }}", "{{ $artColumn->id }}", false, true)); // 默认选中
                                                 @endif
                                             @endforeach
-                                            /*y.options.add(new Option("手机拍照", "0", false, true));// 默认选中
-                                            y.options.add(new Option("相机拍照", "1"));
-                                            y.options.add(new Option("修图技巧", "2"));*/
                                         }
 
                                         if (x.selectedIndex == 2) {
@@ -117,9 +115,6 @@
                                                     y.options.add(new Option("{{ $artColumn->name }}", "{{ $artColumn->id }}", false, true)); // 默认选中
                                                 @endif
                                             @endforeach
-                                            /*y.options.add(new Option("手机评测", "0", false, true));// 默认选中
-                                            y.options.add(new Option("影音器材", "1"));
-                                            y.options.add(new Option("数码周边", "2"));*/
                                         }
 
                                         if (x.selectedIndex == 3) {
@@ -128,10 +123,6 @@
                                                     y.options.add(new Option("{{ $artColumn->name }}", "{{ $artColumn->id }}", false, true)); // 默认选中
                                                 @endif
                                             @endforeach
-                                            /*y.options.add(new Option("游戏", "0", false, true));// 默认选中
-                                            y.options.add(new Option("电影", "1"));
-                                            y.options.add(new Option("音乐", "2"));
-                                            y.options.add(new Option("家居", "2"));*/
                                         }
 
                                     }
@@ -140,14 +131,14 @@
                             </div>
                         </div>
 
-                            <div class="uk-form-row">
+                            <div class="uk-form-row" style="@if(!empty($res))display:none;@endif">
                                 <label class="uk-form-label" for="form-h-it">图片</label>
                                 <div class="uk-form-controls">
                                     {{--<input type="file" name="img" id="form-h-it" style="width: 380px;" placeholder="标题限长25字">--}}
                                     <div id="upload-drop" class="uk-placeholder uk-text-center">
                                         <i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-margin-small-right"></i>
                                         将文件拖拽至此 或
-                                        <a class="uk-form-file">选择一个文件
+                                        <a class="uk-form-file">
                                             <input id="upload-select" type="file" name="img">
                                         </a>
                                     </div>
@@ -163,7 +154,9 @@
                             <div class="uk-form-controls">
                                 <div class="uk-htmleditor-content">
                                     <div class="uk-htmleditor-code">
-                                        <textarea name="content" data-uk-htmleditor="{maxsplitsize:600}" data-uk-check-display="1" style="display: none;">&lt;h1&gt;Heading&lt;/h1&gt;
+                                        <textarea name="content" data-uk-htmleditor="{maxsplitsize:600}" data-uk-check-display="1" style="display: none;">
+                                            @if(!empty($res)){{ $res->content }} @else&lt;h1&gt;Heading&lt;/h1&gt;
+                                                @endif
                                         </textarea>
                                     </div>
                                 </div>
@@ -202,40 +195,24 @@
                                     <td>{{ $art->articleColumn->name }}</td>
                                     <td>{{ $art->created_at }}</td>
                                     <td>
-                                        <button class="uk-button-primary">修改</button>
+                                        <a href="{{ url('admin/add').'/'.$art->id }}" class="uk-button uk-button-primary">
+                                            修改
+                                        </a>
                                     </td>
                                     <td>
-                                        <button class="uk-button-success">发布</button>
+                                        <a href="{{ url('admin/release').'/'.$art->id }}" class="uk-button uk-button-primary">
+                                            发布
+                                        </a>
                                     </td>
                                 </tr>
                         @endforeach
-                        <tr>
-                            <td>1007</td>
-                            <td>五月电影片单</td>
-                            <td>电影</td>
-                            <td>生活方式</td>
-                            <td>2018/05/14</td>
-                            <td>
-                                <button class="uk-button-primary">修改</button>
-                            </td>
-                            <td>
-                                <button class="uk-button-success">发布</button>
-                            </td>
-                        </tr>
                     </table>
 
                     <div>
                         <!--分隔线-->
                         <hr class="uk-grid-divider">
                         <!--分页按钮-->
-                        <ul class="uk-pagination">
-                            <li class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>
-                            <li class="uk-active"><span>1</span></li>
-                            <li><a href="#">2</a></li>
-                            <li><span>...</span></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#"><i class="uk-icon-angle-double-right"></i></a></li>
-                        </ul>
+                        {!! $article->links() !!}
                     </div>
 
                 </li>

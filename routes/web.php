@@ -26,7 +26,10 @@ Route::get('/menu3/{type?}', 'Test@menu3');
 Route::get('/menu4/{type?}', 'Test@menu4');
 Route::get('/follow', 'Test@follow');
 
-Route::get('/article', 'Test@article');
+Route::post('/favor', 'Test@favor')->middleware();
+Route::post('/favorite', 'Test@favorite')->middleware();
+
+Route::get('/article/{id?}', 'Test@article');
 
 
 //Route::get('/person', 'Test@person');
@@ -44,12 +47,15 @@ Route::get('/login', 'Auth\LoginController@showLoginForm');
 Route::post('/login', 'Auth\LoginController@login');
 
 Route::get('/admin/index', 'Admin\TestController@index');
-Route::get('/admin/add', 'Admin\TestController@add');
+Route::get('/admin/add/{id?}', 'Admin\TestController@add');
 Route::post('/admin/fabu', 'Admin\TestController@fabu');
 Route::post('/admin/caogao', 'Admin\TestController@caogao');
+Route::get('/admin/modifyArticle/{id?}', 'Admin\TestController@modifyArticle');
+Route::get('/admin/release/{id?}', 'Admin\TestController@release');
 
-Route::get('/admin/test', 'Admin\TestController@test');
-Route::post('/admin/test', 'Admin\TestController@test');
+
+Route::get('/admin/test/{id?}', 'Admin\TestController@test');
+Route::post('/admin/test/{id?}', 'Admin\TestController@test');
 
 Auth::routes();
 

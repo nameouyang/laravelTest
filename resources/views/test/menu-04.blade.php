@@ -10,95 +10,60 @@
                 <li class="uk-active " aria-expanded="true">
                     <a href="#">全部</a>
                 </li>
-                <li aria-expanded="false">
-                    <a href="#">游戏</a>
-                </li>
-                <li aria-expanded="false">
-                    <a href="#">电影</a>
-                </li>
-                <li aria-expanded="false">
-                    <a href="#">音乐</a>
-                </li>
-                <li aria-expanded="false">
-                    <a href="#">家装</a>
-                </li>
+                @foreach($articleColumns as $articleColumn)
+                    <li aria-expanded="false">
+                        <a href="#" >{{ $articleColumn->name }}</a>
+                    </li>
+                @endforeach
             </ul>
         </div>
     </div>
     <!--文章模块-->
     <ul id="life-all" class="uk-switcher">
         <li>
-    <div class="uk-grid-width-1-1 uk-margin-top  ">
-        <figure class="uk-overlay">
-            <img src="images/test.jpg">
-            <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
-                <h3>五月电影片单</h3>
-            </figcaption>
-        </figure>
-    </div>
-
-    <div class="uk-grid-width-1-1 uk-margin-top  ">
-        <figure class="uk-overlay">
-            <img src="images/test.jpg">
-            <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
-                <h3>五月电影片单</h3>
-            </figcaption>
-        </figure>
-    </div>
-
-    <div class="uk-grid-width-1-1 uk-margin-top  ">
-        <figure class="uk-overlay">
-            <img src="images/test.jpg">
-            <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
-                <h3>五月电影片单</h3>
-            </figcaption>
-        </figure>
-    </div>
+            @foreach($articles as $article)
+                <div class="uk-grid-width-1-1 uk-margin-top ">
+                    <figure class="uk-overlay">
+                        <a href="{{ url('article').'/'.$article->id }}">
+                            <img src="{{ asset($article->banner_img) }}">
+                        </a>
+                        <a href="{{ url('article').'/'.$article->id }}">
+                            <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
+                                <h3>{{ $article->title }}</h3>
+                            </figcaption>
+                        </a>
+                    </figure>
+                </div>
+            @endforeach
         </li>
 
-        <li>
-            <div class="uk-grid-width-1-1 uk-margin-top  ">
-                <figure class="uk-overlay">
-                    <img src="images/test.jpg">
-                    <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
-                        <h3>AAA如何抢救进水的笔记本电脑</h3>
-                    </figcaption>
-                </figure>
-            </div>
-        </li>
+        @foreach($articleColumns as $key => $articleColumn)
+            <?php $i=0;?>
+            @foreach($articles as $article)
+                @if ($article->article_column_id == $articleColumn->id)
+                    <li>
+                        <div class="uk-grid-width-1-1 uk-margin-top  ">
+                            <figure class="uk-overlay">
+                                <a href="{{ url('article').'/'.$article->id }}"><img src="{{ asset($article->banner_img) }}"></a>
+                                <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
+                                    <h3>{{ $article->title }}</h3>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <a href="#" data-uk-switcher-item="{{ $articleColumn->id }}" id="{{ $articleColumn->name }}"></a>
+                    </li>
+                    <?php unset($articleColumns[$key]);$i = 1; ?>
+                @endif
+            @endforeach
+            @if($i==0)
+                <li>
+                    <div class="uk-grid-width-1-1 uk-margin-top  ">
 
-        <li>
-            <div class="uk-grid-width-1-1 uk-margin-top  ">
-                <figure class="uk-overlay">
-                    <img src="images/test.jpg">
-                    <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
-                        <h3>BBB如何抢救进水的笔记本电脑</h3>
-                    </figcaption>
-                </figure>
-            </div>
-        </li>
-
-        <li>
-            <div class="uk-grid-width-1-1 uk-margin-top  ">
-                <figure class="uk-overlay">
-                    <img src="images/test.jpg">
-                    <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
-                        <h3>CCC如何抢救进水的笔记本电脑</h3>
-                    </figcaption>
-                </figure>
-            </div>
-        </li>
-
-        <li>
-            <div class="uk-grid-width-1-1 uk-margin-top  ">
-                <figure class="uk-overlay">
-                    <img src="images/test.jpg">
-                    <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
-                        <h3>DDD如何抢救进水的笔记本电脑</h3>
-                    </figcaption>
-                </figure>
-            </div>
-        </li>
+                    </div>
+                    <a href="#" data-uk-switcher-item="{{ $articleColumn->id }}" id="{{ $articleColumn->name }}"></a>
+                </li>
+            @endif
+        @endforeach
     </ul>
     <!--分隔线-->
     <hr class="uk-grid-divider">

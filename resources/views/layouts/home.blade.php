@@ -3,10 +3,14 @@
 <head>
     <title>Banner @yield('title')</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../lib/uikit/css/uikit.gradient.css">
-    <link rel="stylesheet" type="text/css" href="../lib/uikit/css/components/search.css">
-    <script src="../lib/uikit/js/components/Jquery2.0.js"></script>
-    <script src="../lib/uikit/js/uikit.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('lib/uikit/css/uikit.gradient.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('lib/uikit/css/components/search.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('lib/uikit/css/components/notify.css') }}">
+    <script src="{{ asset('lib/uikit/js/components/notify.js') }}"></script>
+
+    <script src="{{ asset('lib/uikit/js/components/Jquery2.0.js') }}"></script>
+    <script src="{{ asset('lib/uikit/js/uikit.js') }}" type="text/javascript" charset="utf-8"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>

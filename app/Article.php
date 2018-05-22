@@ -1,15 +1,14 @@
 <?php
-
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-    //
     protected $table = 'article';
 
-    public function fromDateTime($value){
+    public function fromDateTime($value)
+    {
         return strtotime(parent::fromDateTime($value));
     }
 
@@ -21,5 +20,15 @@ class Article extends Model
     public function articleColumn()
     {
         return $this->hasOne(ArticleColumn::class, 'id', 'article_column_id');
+    }
+
+    public function articleFavorite()
+    {
+        return $this->hasOne(Favorite::class, 'article_id', 'id');
+    }
+
+    public function articleThumbsUp()
+    {
+        return $this->hasOne(ThumbsUp::class, 'article_id', 'id');
     }
 }

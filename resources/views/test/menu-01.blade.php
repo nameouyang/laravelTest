@@ -11,99 +11,61 @@
                 <li class="uk-active " aria-expanded="true">
                     <a href="#">全部</a>
                 </li>
+                @foreach($articleColumns as $articleColumn)
                 <li aria-expanded="false">
-                    <a href="#" >IOS</a>
+                    <a href="#" >{{ $articleColumn->name }}</a>
                 </li>
-                <li aria-expanded="false">
-                    <a href="#">Android</a>
-                </li>
-                <li aria-expanded="false">
-                    <a href="#">Mac</a>
-                </li>
-                <li aria-expanded="false">
-                    <a href="#">Windows</a>
-                </li>
+                @endforeach
             </ul>
         </div>
     </div>
     <!--全部文章-->
     <ul id="app-all" class="uk-switcher">
         <li id="app-ios">
+            @foreach($articles as $article)
             <div class="uk-grid-width-1-1 uk-margin-top ">
                 <figure class="uk-overlay">
-                    <img src="images/test.jpg">
-                    <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
-                        <h3>简易Markdown编辑器</h3>
-                    </figcaption>
+                    <a href="{{ url('article').'/'.$article->id }}">
+                        <img src="{{ asset($article->banner_img) }}">
+                    </a>
+                    <a href="{{ url('article').'/'.$article->id }}">
+                        <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
+                            <h3>{{ $article->title }}</h3>
+                        </figcaption>
+                    </a>
                 </figure>
             </div>
-
-            <div class="uk-grid-width-1-1 uk-margin-top  ">
-                <figure class="uk-overlay">
-                    <img src="images/test.jpg">
-                    <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
-                        <h3>简易Markdown编辑器</h3>
-                    </figcaption>
-                </figure>
-            </div>
-
-            <div class="uk-grid-width-1-1 uk-margin-top  ">
-                <figure class="uk-overlay">
-                    <img src="images/test.jpg">
-                    <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
-                        <h3>简易Markdown编辑器</h3>
-                    </figcaption>
-                </figure>
-            </div>
+                @endforeach
         </li>
+        @foreach($articleColumns as $key => $articleColumn)
+            <?php $i=0;?>
+            @foreach($articles as $article)
+                @if ($article->article_column_id == $articleColumn->id)
+                    <li>
+                        <div class="uk-grid-width-1-1 uk-margin-top  ">
+                            <figure class="uk-overlay">
+                                <a href="{{ url('article').'/'.$article->id }}"><img src="{{ asset($article->banner_img) }}"></a>
+                                <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
+                                    <h3>{{ $article->title }}</h3>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <a href="#" data-uk-switcher-item="{{ $articleColumn->id }}" id="{{ $articleColumn->name }}"></a>
+                    </li>
+                    <?php unset($articleColumns[$key]);$i = 1; ?>
+                @endif
+            @endforeach
+            @if($i==0)
+                    <li>
+                        <div class="uk-grid-width-1-1 uk-margin-top  ">
 
-        <li>
-            <div class="uk-grid-width-1-1 uk-margin-top  ">
-                <figure class="uk-overlay">
-                    <img src="images/test.jpg">
-                    <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
-                        <h3>AAA简易Markdown编辑器</h3>
-                    </figcaption>
-                </figure>
-            </div>
-            <a href="#" data-uk-switcher-item="1" id="ios"></a>
-        </li>
+                        </div>
+                        <a href="#" data-uk-switcher-item="{{ $articleColumn->id }}" id="{{ $articleColumn->name }}"></a>
+                    </li>
+                @endif
+        @endforeach
 
-        <li>
-            <div class="uk-grid-width-1-1 uk-margin-top  ">
-                <figure class="uk-overlay">
-                    <img src="images/test.jpg">
-                    <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
-                        <h3>BBB简易Markdown编辑器</h3>
-                    </figcaption>
-                </figure>
-            </div>
-            <a href="#" data-uk-switcher-item="2" id="android"></a>
-        </li>
 
-        <li>
-            <div class="uk-grid-width-1-1 uk-margin-top  ">
-                <figure class="uk-overlay">
-                    <img src="images/test.jpg">
-                    <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
-                        <h3>CCC简易Markdown编辑器</h3>
-                    </figcaption>
-                </figure>
-            </div>
-            <a href="#" data-uk-switcher-item="3" id="mac"></a>
-        </li>
-
-        <li>
-            <div class="uk-grid-width-1-1 uk-margin-top  ">
-                <figure class="uk-overlay">
-                    <img src="images/test.jpg">
-                    <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
-                        <h3>DDD简易Markdown编辑器</h3>
-                    </figcaption>
-                </figure>
-            </div>
-            <a href="#" data-uk-switcher-item="4" id="win"></a>
-        </li>
  </ul>
 
     <!--分隔线-->

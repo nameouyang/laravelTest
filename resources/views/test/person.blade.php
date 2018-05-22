@@ -15,6 +15,9 @@
                 <li aria-expanded="false">
                     <a href="#">账号设置</a>
                 </li>
+                <li aria-expanded="false">
+                    <a href="#">退出登录</a>
+                </li>
             </ul>
 
             <ul id="switcher-content" class="uk-switcher">

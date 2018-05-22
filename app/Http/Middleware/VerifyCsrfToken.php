@@ -14,5 +14,7 @@ class VerifyCsrfToken extends BaseVerifier
     protected $except = [
         'admin/fabu',
         'admin/caogao',
+        'favor',
+        'favorite',
     ];
 }

@@ -10,83 +10,70 @@
                 <li class="uk-active " aria-expanded="true">
                     <a href="#">全部</a>
                 </li>
-                <li aria-expanded="false">
-                    <a href="#">手机拍照</a>
-                </li>
-                <li aria-expanded="false">
-                    <a href="#">相机拍照</a>
-                </li>
-                <li aria-expanded="false">
-                    <a href="#">修图技巧</a>
-                </li>
+                @foreach($articleColumns as $articleColumn)
+                    <li aria-expanded="false">
+                        <a href="#" >{{ $articleColumn->name }}</a>
+                    </li>
+                @endforeach
             </ul>
         </div>
     </div>
     <!--文章模块-->
     <ul id="shoot-all" class="uk-switcher">
         <li>
-        <div class="uk-grid-width-1-1 uk-margin-top  ">
-            <figure class="uk-overlay">
-                <img src="images/test.jpg">
-                <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
-                    <h3>教你用手机拍出一张好照片</h3>
-                </figcaption>
-            </figure>
-        </div>
+            @foreach($articles as $article)
+                <div class="uk-grid-width-1-1 uk-margin-top ">
+                    <figure class="uk-overlay">
+                        <a href="{{ url('article').'/'.$article->id }}">
+                            <img src="{{ asset($article->banner_img) }}">
+                        </a>
+                        <a href="{{ url('article').'/'.$article->id }}">
+                            <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
+                                <h3>{{ $article->title }}</h3>
+                            </figcaption>
+                        </a>
+                    </figure>
+                </div>
+            @endforeach
 
-        <div class="uk-grid-width-1-1 uk-margin-top  ">
-            <figure class="uk-overlay">
-                <img src="images/test.jpg">
-                <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
-                    <h3>教你用手机拍出一张好照片</h3>
-                </figcaption>
-            </figure>
-        </div>
-
-        <div class="uk-grid-width-1-1 uk-margin-top  ">
-            <figure class="uk-overlay">
-                <img src="images/test.jpg">
-                <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
-                    <h3>教你用手机拍出一张好照片</h3>
-                </figcaption>
-            </figure>
-        </div>
         </li>
 
-        <li id="shoot">
-            <div class="uk-grid-width-1-1 uk-margin-top  ">
-                <figure class="uk-overlay">
-                    <img src="images/test.jpg">
-                    <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
-                        <h3>AAA教你用手机拍出一张好照片</h3>
-                    </figcaption>
-                </figure>
-            </div>
-        </li>
+        @foreach($articleColumns as $key => $articleColumn)
+            <?php $i=0;?>
+            @foreach($articles as $article)
+                @if ($article->article_column_id == $articleColumn->id)
+                    <li>
+                        <div class="uk-grid-width-1-1 uk-margin-top  ">
+                            <figure class="uk-overlay">
+                                <a href="{{ url('article').'/'.$article->id }}"><img src="{{ asset($article->banner_img) }}"></a>
+                                <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
+                                    <h3>{{ $article->title }}</h3>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <a href="#" data-uk-switcher-item="{{ $articleColumn->id }}" id="{{ $articleColumn->name }}"></a>
+                    </li>
+                    <?php unset($articleColumns[$key]);$i = 1; ?>
+                @endif
+            @endforeach
+            @if($i==0)
+                <li>
+                    <div class="uk-grid-width-1-1 uk-margin-top  ">
 
-        <li>
-            <div class="uk-grid-width-1-1 uk-margin-top  ">
-                <figure class="uk-overlay">
-                    <img src="images/test.jpg">
-                    <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
-                        <h3>BBB教你用手机拍出一张好照片</h3>
-                    </figcaption>
-                </figure>
-            </div>
-        </li>
-
-        <li>
-            <div class="uk-grid-width-1-1 uk-margin-top  ">
-                <figure class="uk-overlay">
-                    <img src="images/test.jpg">
-                    <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
-                        <h3>CCC教你用手机拍出一张好照片</h3>
-                    </figcaption>
-                </figure>
-            </div>
-        </li>
+                    </div>
+                    <a href="#" data-uk-switcher-item="{{ $articleColumn->id }}" id="{{ $articleColumn->name }}"></a>
+                </li>
+            @endif
+        @endforeach
     </ul>
     <!--分隔线-->
     <hr class="uk-grid-divider">
 </div>
+<script>
+    var type = '{{ $type }}';
+    window.onload = function() {
+        $('#'+type).click();
+    }
+
+</script>
 @endsection
