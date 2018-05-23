@@ -31,6 +31,8 @@ Route::post('/favorite', 'Test@favorite')->middleware();
 Route::post('/favoriteCancel', 'Test@favoriteCancel')->middleware();
 
 Route::get('/article/{id?}', 'Test@article');
+Route::get('/attention/{articleId?}', 'Test@attention')->middleware('auth');
+Route::get('/noFollow/{articleId?}', 'Test@noFollow')->middleware('auth');
 
 
 //Route::get('/person', 'Test@person');
@@ -57,6 +59,7 @@ Route::get('/admin/release/{id?}', 'Admin\TestController@release');
 
 Route::get('/admin/test/{id?}', 'Admin\TestController@test');
 Route::post('/admin/test/{id?}', 'Admin\TestController@test');
+Route::get('/admin/draft/{id?}', 'Admin\TestController@draft');
 
 Auth::routes();
 

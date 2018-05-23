@@ -41,6 +41,9 @@
             <li @if('add' == $action) class="uk-active" @endif>
                 <a href="{{ url('admin/add')}}">新建文章</a>
             </li>
+            <li @if('draft' == $action) class="uk-active" @endif>
+                <a href="{{ url('admin/draft') }}">草稿箱</a>
+            </li>
             <li @if('user' == $action) class="uk-active" @endif>
                 <a href="{{ url('admin/user')}}">用户管理</a>
             </li>

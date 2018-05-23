@@ -27,7 +27,7 @@
                 <div class="uk-panel uk-panel-box" data-uk-sticky="{top:35}" style="margin: 0px;">
                     <ul class="uk-nav uk-nav-side " data-uk-switcher="{connect:'#good'}">
                         <li class="uk-active" aria-expanded="true"><a href="{{ url('admin/add') }}"> 创建文章</a></li>
-                        <li class="" aria-expanded="false"><a href="#">草稿箱</a></li>
+                        {{--<li class="" aria-expanded="false"><a href="#">草稿箱</a></li>--}}
                     </ul>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                         <div class="uk-form-row">
                             <label class="uk-form-label" for="form-h-it">文章简介</label>
                             <div class="uk-form-controls">
-                                <input type="text" name="abstract" value="@if(!empty($res)){{ $res->abstract }}@endif" id="form-h-it" style="width: 380px;" placeholder="标题限长25字">
+                                <input type="area" name="abstract" value="@if(!empty($res)){{ $res->abstract }}@endif" id="form-h-it" style="width: 380px;" placeholder="标题限长25字">
                             </div>
                         </div>
 
@@ -62,7 +62,9 @@
                             <div class="uk-form-controls">
                                 <select id="first" onchange="change()" name="zhuti">
                                     @foreach ($articleType as $artType)
-                                        @if (1 == $artType->id)
+                                        @if (1 == $artType->id && empty($res))
+                                            <option selected="selected" value="{{ $artType->id }}">{{ $artType->name }}</option>
+                                        @elseif(!empty($res) && $res->article_type_id == $artType->id)
                                             <option selected="selected" value="{{ $artType->id }}">{{ $artType->name }}</option>
                                         @else
                                             <option value="{{ $artType->id }}">{{ $artType->name }}</option>
@@ -78,10 +80,20 @@
                             <div class="uk-form-controls">
                                 <select id="second" name="lanmu">
                                     @foreach($articleColumn as $artColumn)
-                                        @if(1 == $artColumn->article_type_id)
-                                            <option value="{{ $artColumn->id }}">{{ $artColumn->name }}</option>
+                                        @if(empty($res))
+                                            @if(1 == $artColumn->article_type_id)
+                                                <option value="{{ $artColumn->id }}">{{ $artColumn->name }}</option>
+                                            @endif
+                                        @else
+                                            @if($artColumn->article_type_id == $res->article_type_id)
+                                                @if($artColumn->id == $res->article_column_id)
+                                                    <option selected="selected" value="{{ $artColumn->id }}">{{ $artColumn->name }}</option>
+                                                @else
+                                                    <option value="{{ $artColumn->id }}">{{ $artColumn->name }}</option>
+                                                @endif;
+                                            @endif
                                         @endif
-                                        @endforeach
+                                    @endforeach
                                 </select>
                                 <!--两个下拉菜单-->
                                 <script>

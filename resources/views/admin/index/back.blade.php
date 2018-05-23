@@ -38,12 +38,12 @@
             <div class="uk-sticky-placeholder " style="height: 600px; margin: 0px;">
                 <div class="uk-panel uk-panel-box" data-uk-sticky="{top:35}" style="margin: 0px;">
                     <ul class="uk-nav uk-nav-side " data-uk-switcher="{connect:'#good'}">
-                        <li class="uk-active" aria-expanded="true"><a href="#">1软件使用</a></li>
+                        <li class="uk-active"><a href="#faq">所有已发文章</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li class="" aria-expanded="true"><a href="#">1软件使用</a></li>
                         <li class="" aria-expanded="false"><a href="#">2摄影技巧</a></li>
                         <li class="" aria-expanded="false"><a href="#">3智能设备</a></li>
                         <li class="" aria-expanded="false"><a href="#">4生活方式</a></li>
-                        <li class="uk-nav-divider"></li>
-                        <li class=""><a href="#faq">所有已发文章</a></li>
                     </ul>
                 </div>
             </div>
@@ -53,6 +53,48 @@
         <div class="uk-width-medium-5-6 uk-row-first">
             <!--文章列表表单-->
             <ul id="good" class="uk-switcher">
+
+                <!--所有已发文章-->
+                <li>
+                    <table class="uk-table uk-table-striped uk-table-hover ">
+                        <thead>
+                        <tr>
+                            <th class="uk-width-1-10">文章ID</th>
+                            <th class="uk-width-4-10">文章标题</th>
+                            <th class="uk-width-1-10">文章主题</th>
+                            <th class="uk-width-1-10">文章栏目</th>
+                            <th class="uk-width-1-10">点赞数</th>
+                            <th class="uk-width-1-10">收藏数</th>
+                            <th class="uk-width-1-10">操作</th>
+                        </tr>
+                        </thead>
+                        @foreach($article[4] as $art)
+                            <tr>
+                                <td>{{ $art->id }}</td>
+                                <td>{{ $art->title }}</td>
+                                <td>{{ $art->articleType->name }}</td>
+                                <td>{{ $art->articleColumn->name }}</td>
+                                <td>{{ $art->thumbs_up }}</td>
+                                <td>{{ $art->favorite }}</td>
+                                <td>
+                                    <a href="{{ url('admin/add').'/'.$art->id }}" class="uk-button uk-button-success">
+                                        修改
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </table>
+
+                    <div>
+                        <!--分隔线-->
+                        <hr class="uk-grid-divider">
+                        <!--分页按钮-->
+                        {!! $article[4]->links() !!}
+                    </div>
+                </li>
+
+                <li></li>
+
                 <li class="uk-active">
                     <table class="uk-table uk-table-striped uk-table-hover ">
                         <thead>
@@ -257,52 +299,7 @@
                         {!! $article[3]->links() !!}
 
                     </div>
-
                 </li>
-
-                <li></li>
-
-                <!--所有已发文章-->
-                <li>
-                    <table class="uk-table uk-table-striped uk-table-hover ">
-                        <thead>
-                        <tr>
-                            <th class="uk-width-1-10">文章ID</th>
-                            <th class="uk-width-4-10">文章标题</th>
-                            <th class="uk-width-1-10">文章主题</th>
-                            <th class="uk-width-1-10">文章栏目</th>
-                            <th class="uk-width-1-10">点赞数</th>
-                            <th class="uk-width-1-10">收藏数</th>
-                            <th class="uk-width-1-10">操作</th>
-                        </tr>
-                        </thead>
-                        @foreach($article[4] as $art)
-                        <tr>
-                            <td>{{ $art->id }}</td>
-                            <td>{{ $art->title }}</td>
-                            <td>{{ $art->articleType->name }}</td>
-                            <td>{{ $art->articleColumn->name }}</td>
-                            <td>{{ $art->thumbs_up }}</td>
-                            <td>{{ $art->favorite }}</td>
-                            <td>
-                                <a href="{{ url('admin/add').'/'.$art->id }}" class="uk-button uk-button-success">
-                                    修改
-                                </a>
-                            </td>
-                        </tr>
-                            @endforeach
-                    </table>
-
-                    <div>
-                        <!--分隔线-->
-                        <hr class="uk-grid-divider">
-                        <!--分页按钮-->
-                        {!! $article[4]->links() !!}
-                    </div>
-
-                </li>
-
-
             </ul>
 
         </div>

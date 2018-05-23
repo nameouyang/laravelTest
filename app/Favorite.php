@@ -12,4 +12,9 @@ class Favorite extends Model
     public function fromDateTime($value){
         return strtotime(parent::fromDateTime($value));
     }
+
+    public function article()
+    {
+        return $this->hasOne(Article::class, 'id', 'article_id');
+    }
 }

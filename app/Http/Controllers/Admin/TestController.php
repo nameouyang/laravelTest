@@ -79,13 +79,15 @@ class TestController extends Controller
     public function add($id = 0)
     {
 //        $article = Article::where('status', '=',0)->get();
-        $article = Article::where('status', '=',0)->paginate(1);
+        $article = Article::where('status', '=',0)->paginate(10);
         $articleType   = ArticleType::all();
         $articleColumn = ArticleColumn::all();
 
         $res = [];
         if (0 != $id) {
-            $res = Article::where('id', '=', $id)->first();
+            $res = Article::where('id', '=', $id)
+                ->where('status','=', 1)
+                ->first();
         }
 
         return view('admin/index/add', [
@@ -228,5 +230,11 @@ class TestController extends Controller
     {
         $file = $request->file('img')->store('images', 'uploads');
         return $file;//substr($file, 7);
+    }
+
+    public function draft()
+    {
+        $article = Article::where('status', '=',0)->paginate(10);
+        return view('admin/index/draft',['action'=>'draft','article'=>$article]);
     }
 }

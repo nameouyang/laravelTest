@@ -40,9 +40,9 @@
 
         @foreach($articleColumns as $key => $articleColumn)
             <?php $i=0;?>
-            @foreach($articles as $article)
-                @if ($article->article_column_id == $articleColumn->id)
                     <li>
+                        @foreach($articles as $article)
+                            @if ($article->article_column_id == $articleColumn->id)
                         <div class="uk-grid-width-1-1 uk-margin-top  ">
                             <figure class="uk-overlay">
                                 <a href="{{ url('article').'/'.$article->id }}"><img src="{{ asset($article->banner_img) }}"></a>
@@ -52,10 +52,11 @@
                             </figure>
                         </div>
                         <a href="#" data-uk-switcher-item="{{ $key+1 }}" id="{{ $articleColumn->name }}"></a>
+                                <?php $i = 1; ?>
+                            @endif
+                        @endforeach
                     </li>
-                    <?php unset($articleColumns[$key]);$i = 1; ?>
-                @endif
-            @endforeach
+
             @if($i==0)
                 <li>
                     <div class="uk-grid-width-1-1 uk-margin-top  ">

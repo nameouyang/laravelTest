@@ -16,68 +16,48 @@
                     <a href="#">账号设置</a>
                 </li>
                 <li aria-expanded="false">
-                    <a href="#">退出登录</a>
+                    <a href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                        退出登录
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
                 </li>
             </ul>
 
             <ul id="switcher-content" class="uk-switcher">
                 <!--我的关注-->
                 <li class="uk-active" aria-hidden="false">
+                    @foreach($follow as $f)
                     <div class="uk-grid-width-1-1 uk-margin-top  ">
+                        <a href="{{ url('article').'/'.$f->article->id }}">
                         <figure class="uk-overlay">
-                            <img src="images/test.jpg">
+                            <img src="{{ asset($f->article->banner_img) }}">
                             <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
-                                <h3>简易Markdown编辑器</h3>
+                                <h3>{{ $f->article->title }}</h3>
                             </figcaption>
                         </figure>
+                        </a>
                     </div>
-
-                    <div class="uk-grid-width-1-1 uk-margin-top  ">
-                        <figure class="uk-overlay">
-                            <img src="images/test.jpg">
-                            <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
-                                <h3>手机拍照技巧</h3>
-                            </figcaption>
-                        </figure>
-                    </div>
-
-                    <div class="uk-grid-width-1-1 uk-margin-top  ">
-                        <figure class="uk-overlay">
-                            <img src="images/test.jpg">
-                            <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
-                                <h3>homepod智能音箱评测</h3>
-                            </figcaption>
-                        </figure>
-                    </div>
+                    @endforeach
                 </li>
                 <!--消息通知-->
                 <li aria-hidden="true" class="">
-                    <div class="uk-grid-width-1-1 uk-margin-top  ">
-                        <figure class="uk-overlay">
-                            <img src="images/test.jpg">
-                            <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
-                                <h3>11简易Markdown编辑器</h3>
-                            </figcaption>
-                        </figure>
-                    </div>
-
-                    <div class="uk-grid-width-1-1 uk-margin-top  ">
-                        <figure class="uk-overlay">
-                            <img src="images/test.jpg">
-                            <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
-                                <h3>22手机拍照技巧</h3>
-                            </figcaption>
-                        </figure>
-                    </div>
-
-                    <div class="uk-grid-width-1-1 uk-margin-top  ">
-                        <figure class="uk-overlay">
-                            <img src="images/test.jpg">
-                            <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
-                                <h3>33homepod智能音箱评测</h3>
-                            </figcaption>
-                        </figure>
-                    </div>
+                    @foreach($favorite as $f)
+                        <div class="uk-grid-width-1-1 uk-margin-top  ">
+                            <a href="{{ url('article').'/'.$f->article->id }}">
+                                <figure class="uk-overlay">
+                                    <img src="{{ asset($f->article->banner_img) }}">
+                                    <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
+                                        <h3>{{ $f->article->title }}</h3>
+                                    </figcaption>
+                                </figure>
+                            </a>
+                        </div>
+                    @endforeach
                 </li>
 
                 <li aria-hidden="true" class="">
@@ -118,6 +98,9 @@
                         </form>
 
                     </div>
+                </li>
+                <li>
+
                 </li>
 
             </ul>

@@ -67,3 +67,15 @@ CREATE TABLE IF NOT EXISTS `thumbs_up` (
   KEY `idx_article_id` (`article_id`),
   KEY `idx_user_id` (`user_id`)
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT '点赞表';
+
+
+CREATE TABLE IF NOT EXISTS `follow` (
+  `id` INT (11) NOT NULL AUTO_INCREMENT,
+  `article_column_id` INT (11) NOT NULL DEFAULT '1' COMMENT '文章id',
+  `user_id` INT (11) NOT NULL DEFAULT '1' COMMENT '用户id',
+  `created_at` INT (11) NULL DEFAULT '0',
+  `updated_at` INT (11) NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `idx_article_column_id` (`article_column_id`),
+  KEY `idx_user_id` (`user_id`)
+)ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT '关注表';
