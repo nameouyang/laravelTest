@@ -50,7 +50,7 @@
                                 </figcaption>
                             </figure>
                         </div>
-                        <a href="#" data-uk-switcher-item="{{ $articleColumn->id }}" id="{{ $articleColumn->name }}"></a>
+                        <a href="#" data-uk-switcher-item="{{ $key+1 }}" id="{{ $articleColumn->name }}"></a>
                     </li>
                     <?php unset($articleColumns[$key]);$i = 1; ?>
                 @endif

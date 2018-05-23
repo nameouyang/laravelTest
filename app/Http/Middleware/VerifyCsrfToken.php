@@ -16,5 +16,6 @@ class VerifyCsrfToken extends BaseVerifier
         'admin/caogao',
         'favor',
         'favorite',
+        'favoriteCancel',
     ];
 }

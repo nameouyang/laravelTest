@@ -28,6 +28,7 @@ Route::get('/follow', 'Test@follow');
 
 Route::post('/favor', 'Test@favor')->middleware();
 Route::post('/favorite', 'Test@favorite')->middleware();
+Route::post('/favoriteCancel', 'Test@favoriteCancel')->middleware();
 
 Route::get('/article/{id?}', 'Test@article');
 

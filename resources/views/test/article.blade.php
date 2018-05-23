@@ -21,7 +21,7 @@
                 <hr class="uk-grid-divider">
 
                 <button class="uk-button uk-button-danger" @if(!empty($article->articleThumbsUp->id) || !Auth::check())) disabled @endif id="favor" >点赞</button>
-                @if(!empty($article->articleThumbsUp->id) || !Auth::check())
+                @if(!empty($article->articleFavorite->id) && Auth::check())
                     <button class="uk-button uk-button-primary"  id="favoriteCancel">取消收藏</button>
                 @else
                     <button class="uk-button uk-button-primary" @if(!Auth::check()) disabled @endif id="favorite">添加收藏</button>

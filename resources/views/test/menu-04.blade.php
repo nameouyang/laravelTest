@@ -50,7 +50,7 @@
                                 </figcaption>
                             </figure>
                         </div>
-                        <a href="#" data-uk-switcher-item="{{ $articleColumn->id }}" id="{{ $articleColumn->name }}"></a>
+                        <a href="#" data-uk-switcher-item="{{ $key+1 }}" id="{{ $articleColumn->name }}"></a>
                     </li>
                     <?php unset($articleColumns[$key]);$i = 1; ?>
                 @endif
@@ -68,4 +68,11 @@
     <!--分隔线-->
     <hr class="uk-grid-divider">
 </div>
+<script>
+    var type = '{{ $type }}';
+    window.onload = function() {
+        $('#'+type).click();
+    }
+
+</script>
 @endsection

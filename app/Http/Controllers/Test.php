@@ -145,7 +145,7 @@ class Test extends Controller
 
         $thumbsUp = new ThumbsUp();
         $thumbsUp->article_id = $id;
-        $thumbsUp->user_id = $article->id;
+        $thumbsUp->user_id = $this->user->id;
         $thumbsUp->save();
 
         self::json(200, 'success', []);
@@ -163,7 +163,7 @@ class Test extends Controller
 
         $favorite = new Favorite();
         $favorite->article_id = $id;
-        $favorite->user_id = $article->id;
+        $favorite->user_id = $this->user->id;
         $favorite->save();
 
         self::json(200, 'success', []);
@@ -176,13 +176,11 @@ class Test extends Controller
     {
         $id = $request->data;
         $article = Article::where('id','=', $id)->first();
-        $article->favorite = $article->favorite + 1;
+        $article->favorite = $article->favorite - 1;
         $article->save();
 
-        $favorite = new Favorite();
-        $favorite->article_id = $id;
-        $favorite->user_id = $article->id;
-        $favorite->save();
+        Favorite::where('article_id','=',$id)->where('user_id','=',$this->user->id)->delete();
+
 
         self::json(200, 'success', []);
     }
