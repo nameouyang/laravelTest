@@ -33,11 +33,11 @@
                 <li class="uk-active" aria-hidden="false">
                     @foreach($follow as $f)
                     <div class="uk-grid-width-1-1 uk-margin-top  ">
-                        <a href="{{ url('article').'/'.$f->article->id }}">
+                        <a href="{{ url('article').'/'.$f->id }}">
                         <figure class="uk-overlay">
-                            <img src="{{ asset($f->article->banner_img) }}">
+                            <img src="{{ asset($f->banner_img) }}">
                             <figcaption class="uk-overlay-panel uk-overlay-bottom uk-overlay-background">
-                                <h3>{{ $f->article->title }}</h3>
+                                <h3>{{ $f->title }}</h3>
                             </figcaption>
                         </figure>
                         </a>

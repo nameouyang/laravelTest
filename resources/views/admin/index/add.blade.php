@@ -43,17 +43,19 @@
                         {{ csrf_field() }}
                         <!--设置文章标题-->
                         <div class="uk-form-row">
-                            <label class="uk-form-label" for="form-h-it">文章标题</label>
+                            <label class="uk-form-label" for="title">文章标题</label>
                             <div class="uk-form-controls">
-                                <input type="text" name="title" id="form-h-it" value="@if(!empty($res)){{ $res->title }}@endif" style="width: 380px;" placeholder="标题限长25字">
+                                <input type="text" required name="title" id="title" value="@if(!empty($res)){{ $res->title }}@endif" style="width: 380px;" placeholder="标题限长25字">
                             </div>
+                            <span id="titleError" class="uk-margin-top uk-text-large uk-text-danger" style="display: none">文章标题不能为空</span>
                         </div>
 
                         <div class="uk-form-row">
-                            <label class="uk-form-label" for="form-h-it">文章简介</label>
+                            <label class="uk-form-label" for="abstract">文章简介</label>
                             <div class="uk-form-controls">
-                                <input type="area" name="abstract" value="@if(!empty($res)){{ $res->abstract }}@endif" id="form-h-it" style="width: 380px;" placeholder="标题限长25字">
+                                <input type="area" required name="abstract" value="@if(!empty($res)){{ $res->abstract }}@endif" id="abstract" style="width: 380px;" placeholder="标题限长25字">
                             </div>
+                            <span id="abstractError" class="uk-margin-top uk-text-large uk-text-danger" style="display: none">文章简介不能为空</span>
                         </div>
 
                         <!--设置文章主题-->
@@ -151,13 +153,14 @@
                                         <i class="uk-icon-cloud-upload uk-icon-medium uk-text-muted uk-margin-small-right"></i>
                                         将文件拖拽至此 或
                                         <a class="uk-form-file">
-                                            <input id="upload-select" type="file" name="img">
+                                            <input required id="upload-select" type="file" name="img">
                                         </a>
                                     </div>
                                     <div id="progressbar" class="uk-progress uk-hidden">
                                         <div class="uk-progress-bar" style="width: 0%;">...</div>
                                     </div>
                                 </div>
+                                <span id="imgError" class="uk-margin-top uk-text-large uk-text-danger" style="display: none">请上传图片</span>
                             </div>
 
                         <!--设置文章内容-->
@@ -166,12 +169,13 @@
                             <div class="uk-form-controls">
                                 <div class="uk-htmleditor-content">
                                     <div class="uk-htmleditor-code">
-                                        <textarea name="content" data-uk-htmleditor="{maxsplitsize:600}" data-uk-check-display="1" style="display: none;">
+                                        <textarea name="content" id="content" required data-uk-htmleditor="{maxsplitsize:600}" data-uk-check-display="1" style="display: none;">
                                             @if(!empty($res)){{ $res->content }} @else&lt;h1&gt;Heading&lt;/h1&gt;
                                                 @endif
                                         </textarea>
                                     </div>
                                 </div>
+                                <span id="contentError" class="uk-margin-top uk-text-large uk-text-danger" style="display: none">文章内容不能为空</span>
                             </div>
                             <button type="button" id ="fabu" class="uk-button-success uk-button-large uk-align-medium-right uk-margin-top">确认发布</button>
                             <button type="button" id="caogao" class="uk-button-primary uk-button-large uk-align-right uk-margin-top">保存至草稿箱</button>
@@ -238,7 +242,10 @@
         window.onload = function(){
             $('#fabu').click(function (e) {
                 $('input[name=status]').val('1');
-                $('#form').submit();
+                var isSuccess = check();
+                if (isSuccess) {
+                    $('#form').submit();
+                }
                 //e.preventDefault();
 
                 /*var data = $('#form').serialize();
@@ -258,7 +265,10 @@
             $('#caogao').click(function (e) {
                 $('input[name=status]').val('0');
 //                console.log($('#form'));
-                $('#form').submit();
+                var isSuccess = check();
+                if (isSuccess) {
+                    $('#form').submit();
+                }
                 /*e.preventDefault();
                 var data = $('#form').serialize();
                 $.post("caogao",{data:data},function(result){
@@ -272,6 +282,30 @@
                     }
                 });*/
             });
+
+            function check() {
+                var title = $('#title').val();
+                var abstract = $('#abstract').val();
+                var img      = $('#upload-select').val();
+                var content      = $('#content').val();
+                if (title == null || title == undefined || title == '') {
+                    $('#titleError').css('display','block');
+                    return false;
+                }
+                if (abstract == null || abstract == undefined || abstract == '') {
+                    $('#abstractError').css('display','block');
+                    return false;
+                }
+                if (img == null || img == undefined || img == '') {
+                    $('#imgError').css('display','block');
+                    return false;
+                }
+                if (content == null || content == undefined || content == '') {
+                    $('#contentError').css('display','block');
+                    return false;
+                }
+                return true;
+            }
         };
 
     </script>

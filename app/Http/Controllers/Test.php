@@ -125,7 +125,12 @@ class Test extends Controller
 
     public function person()
     {
-        $follow = Follow::where('user_id','=',$this->user->id)->get();
+        $follow = Follow::where('user_id','=',$this->user->id)->get()->toArray();
+        $articleColumnId = array_column($follow, 'article_column_id');
+        $follow = [];
+        if (!empty($articleColumnId)) {
+            $follow = Article::whereIn('article_column_id', $articleColumnId)->get();
+        }
         $favorite = Favorite::where('user_id','=',$this->user->id)->get();
         return view('test/person', ['user'=>$this->user,'follow'=>$follow,'favorite'=>$favorite]);
     }

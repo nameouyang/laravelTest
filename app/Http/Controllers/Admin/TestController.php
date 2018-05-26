@@ -41,7 +41,11 @@ namespace App\Http\Controllers\Admin;
 use App\Article;
 use App\ArticleColumn;
 use App\ArticleType;
+use App\Favorite;
+use App\Follow;
 use App\Http\Controllers\Controller;
+use App\ThumbsUp;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -49,7 +53,7 @@ class TestController extends Controller
 {
     public function __construct()
     {
-//        $this->middleware('auth');
+        $this->middleware('auth:admin');
     }
     public function guest()
     {
@@ -70,7 +74,9 @@ class TestController extends Controller
         $article[] = self::selectArticle(2);
         $article[] = self::selectArticle(3);
         $article[] = self::selectArticle(4);
-        $article[] = Article::where('status','=',1)->paginate(10);;
+        $article[] = Article::where('status','=',1)
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);;
 
 
         return view('admin/index/back', ['action'=>'index', 'article' => $article]);
@@ -236,5 +242,20 @@ class TestController extends Controller
     {
         $article = Article::where('status', '=',0)->paginate(10);
         return view('admin/index/draft',['action'=>'draft','article'=>$article]);
+    }
+
+    public function user()
+    {
+        $users = User::paginate(10);
+        return view('admin/index/user',['action'=>'user','users'=>$users]);
+
+    }
+
+    public function userDelete($id)
+    {
+        User::where('id',$id)->delete();
+        Favorite::where('user_id',$id)->delete();
+        Follow::where('user_id',$id)->delete();
+        ThumbsUp::where('user_id',$id)->delete();
     }
 }

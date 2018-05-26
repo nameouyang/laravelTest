@@ -34,6 +34,7 @@ Route::get('/article/{id?}', 'Test@article');
 Route::get('/attention/{articleId?}', 'Test@attention')->middleware('auth');
 Route::get('/noFollow/{articleId?}', 'Test@noFollow')->middleware('auth');
 
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 //Route::get('/person', 'Test@person');
 /*Route::get('/person', function() {
@@ -61,11 +62,31 @@ Route::get('/admin/test/{id?}', 'Admin\TestController@test');
 Route::post('/admin/test/{id?}', 'Admin\TestController@test');
 Route::get('/admin/draft/{id?}', 'Admin\TestController@draft');
 
+Route::get('/admin/user', 'Admin\TestController@user');
+Route::get('/admin/userDelete/{id?}', 'Admin\TestController@userDelete');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('photos', 'PhotoController');
+
+
+Route::get('/aaaa/{id?}/{comments?}', function ($id=null, $comments=null){
+    return '为什么会有这种路由' . $id . $comments;
+});
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/', 'Admin\IndexController@guest');
+    Route::get('login', 'Admin\Auth\LoginController@showLoginForm');
+    Route::post('login', 'Admin\Auth\LoginController@login');
+    Route::post('logout', 'Admin\Auth\LoginController@logout');
+    /*Route::group(['middleware' => 'auth:admin'], function () {
+        Route::get('/index', 'Admin\IndexController@index');
+    });*/
+});
+
+Route::post('/admin/login', 'Admin\Auth\LoginController@login')->name('admin.login');
 
 
 
