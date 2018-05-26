@@ -48,6 +48,23 @@
                 <a href="{{ url('admin/user')}}">用户管理</a>
             </li>
         </ul>
+        <div class="uk-navbar-flip">
+
+            <a href="" class="uk-navbar-toggle uk-navbar-toggle-alt uk-visible-small"></a>
+
+            <ul class="uk-navbar-nav uk-hidden-small">
+                <li class="uk-parent" data-uk-dropdown="" aria-haspopup="true" aria-expanded="false">
+                    <a href="">欢迎 {{ Auth::guard('admin')->user()->name }}</a>
+
+                    <div class="uk-dropdown uk-dropdown-navbar uk-dropdown-bottom" style="top: 40px; left: 0px;">
+                        <ul class="uk-nav uk-nav-navbar">
+                            <li><a href="{{ url('admin/logout') }}">退出</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
     </nav>
 
     @yield('content')

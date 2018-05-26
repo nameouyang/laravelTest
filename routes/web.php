@@ -51,6 +51,7 @@ Route::get('/login', 'Auth\LoginController@showLoginForm');
 Route::post('/login', 'Auth\LoginController@login');
 
 Route::get('/admin/index', 'Admin\TestController@index');
+Route::get('/admin', 'Admin\TestController@index');
 Route::get('/admin/add/{id?}', 'Admin\TestController@add');
 Route::post('/admin/fabu', 'Admin\TestController@fabu');
 Route::post('/admin/caogao', 'Admin\TestController@caogao');
@@ -77,10 +78,11 @@ Route::get('/aaaa/{id?}/{comments?}', function ($id=null, $comments=null){
 });
 
 Route::group(['prefix' => 'admin'], function () {
-    Route::get('/', 'Admin\IndexController@guest');
+    //Route::get('/', 'Admin\IndexController@guest');
     Route::get('login', 'Admin\Auth\LoginController@showLoginForm');
     Route::post('login', 'Admin\Auth\LoginController@login');
     Route::post('logout', 'Admin\Auth\LoginController@logout');
+    Route::get('logout', 'Admin\Auth\LoginController@logout');
     /*Route::group(['middleware' => 'auth:admin'], function () {
         Route::get('/index', 'Admin\IndexController@index');
     });*/

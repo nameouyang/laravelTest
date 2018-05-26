@@ -38,10 +38,13 @@
  */
 
 namespace App\Http\Controllers\Admin\Auth;
+use App\Admin;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
@@ -52,9 +55,15 @@ class LoginController extends Controller
     {
         $this->middleware('guest:admin')->except('logout');
     }
+
     public function guest(){
         return view('admin/guest');
     }
+
+    protected function guard() {
+       return Auth::guard('admin');
+    }
+
     public function index()
     {
         return view('admin/index');
@@ -70,11 +79,63 @@ class LoginController extends Controller
         return view('admin/index/login');
     }
 
-    public function login(Request $request)
+    public function login1(Request $request)
     {
         $this->validateLogin($request);
+        $admins = Admin::first();
+        $res = Hash::check($request->password, $admins->password);
+        if ($res) {
+            return redirect()->action('Admin\TestController@index');
 
-        dd($request);
+        }
+        /*var_dump($res);die;
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+            var_dump('12345');
+        }
+        $admins = Admin::where('password',bcrypt($request->password))->where('email',$request->email)->first();
+        dd($admins);*/
+
+    }
+
+    public function login(Request $request)
+    {
+
+        $this->validateLogin($request);
+
+        // If the class is using the ThrottlesLogins trait, we can automatically throttle
+        // the login attempts for this application. We'll key this by the username and
+        // the IP address of the client making these requests into this application.
+        if ($this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+
+            return $this->sendLockoutResponse($request);
+        }
+
+        if ($this->attemptLogin($request)) {
+            return $this->sendLoginResponse($request);
+        }
+
+        // If the login attempt was unsuccessful we will increment the number of attempts
+        // to login and redirect the user back to the login form. Of course, when this
+        // user surpasses their maximum number of attempts they will get locked out.
+        $this->incrementLoginAttempts($request);
+
+        return $this->sendFailedLoginResponse($request);
+    }
+
+    /**
+     * 重写 Log the user out of the application.
+     * @function logout
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @author CJ
+     */
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+        $request->session()->flush();
+        $request->session()->regenerate();
+        return redirect('/admin/login');
     }
 
     protected function validateLogin(Request $request)
@@ -89,9 +150,6 @@ class LoginController extends Controller
             return $this->sendLoginResponse($request);
         }
 
-        // If the login attempt was unsuccessful we will increment the number of attempts
-        // to login and redirect the user back to the login form. Of course, when this
-        // user surpasses their maximum number of attempts they will get locked out.
         $this->incrementLoginAttempts($request);
 
         return $this->sendFailedLoginResponse($request);
