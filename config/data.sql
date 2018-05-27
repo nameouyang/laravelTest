@@ -93,3 +93,24 @@ CREATE TABLE IF NOT EXISTS `follow` (
   KEY `idx_article_column_id` (`article_column_id`),
   KEY `idx_user_id` (`user_id`)
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT '关注表';
+
+
+INSERT INTO article_type(`name`) VALUES ('软件使用'),
+VALUES ('摄影技巧'),
+VALUES ('智能设备'),
+VALUES ('生活方式');
+
+INSERT INTO article_column(`id`,`name`) VALUES (1,'IOS'),
+VALUES (1,'Android'),
+VALUES (1,'Mac'),
+VALUES (1,'Win'),
+VALUES (2,'手机拍照'),
+VALUES (2,'相机拍照'),
+VALUES (2,'修图技巧'),
+VALUES (3,'手机测评'),
+VALUES (3,'影音器材'),
+VALUES (3,'数码周边'),
+VALUES (4,'游戏'),
+VALUES (4,'电影'),
+VALUES (4,'音乐'),
+VALUES (4,'家装');
